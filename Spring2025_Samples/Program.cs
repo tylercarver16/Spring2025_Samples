@@ -13,7 +13,6 @@ namespace MyApp
         static void Main(string[] args)
         {
 
-            var lastKey = 1;
             Console.WriteLine("Welcome to Amazon!");
 
             Console.WriteLine("C. Create new inventory item");
@@ -33,9 +32,8 @@ namespace MyApp
                 {
                     case 'C':
                     case 'c':
-                        list.Add(new Product
+                        ProductServiceProxy.Current.AddOrUpdate(new Product
                         {
-                            Id = lastKey++,
                             Name = Console.ReadLine()
                         });
                         break;
@@ -50,11 +48,12 @@ namespace MyApp
                         Console.WriteLine("Which product would you like to update?");
                         int selection = int.Parse(Console.ReadLine() ?? "-1");
                         var selectedProd = list.FirstOrDefault(p => p.Id == selection);
+
                         if(selectedProd != null)
                         {
                             selectedProd.Name = Console.ReadLine() ?? "ERROR";
+                            ProductServiceProxy.Current.AddOrUpdate(selectedProd);
                         }
-                        
                         break;
                     case 'D':
                     case 'd':
@@ -62,8 +61,7 @@ namespace MyApp
                         //throw it away
                         Console.WriteLine("Which product would you like to update?");
                         selection = int.Parse(Console.ReadLine() ?? "-1");
-                        selectedProd = list.FirstOrDefault(p => p.Id == selection);
-                        list.Remove(selectedProd);
+                        ProductServiceProxy.Current.Delete(selection);
                         break;
                     case 'Q':
                     case 'q':
