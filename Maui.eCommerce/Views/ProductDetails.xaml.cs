@@ -4,13 +4,16 @@ using Spring2025_Samples.Models;
 
 namespace Maui.eCommerce.Views;
 
+[QueryProperty(nameof(ProductId), "productId")]
 public partial class ProductDetails : ContentPage
 {
 	public ProductDetails()
 	{
 		InitializeComponent();
-		BindingContext = new ProductViewModel();
+		
 	}
+
+    public int ProductId { get; set; }
 
     private void GoBackClicked(object sender, EventArgs e)
     {
@@ -22,5 +25,18 @@ public partial class ProductDetails : ContentPage
         var name = (BindingContext as ProductViewModel).Name;
         ProductServiceProxy.Current.AddOrUpdate(new Product { Name = name });
         Shell.Current.GoToAsync("//InventoryManagement");
+    }
+
+    private void ContentPage_NavigatedTo(object sender, NavigatedToEventArgs e)
+    {
+        if(ProductId == 0)
+        {
+            BindingContext = new ProductViewModel();
+        }
+        else
+        {
+            BindingContext = new ProductViewModel(ProductServiceProxy.Current.GetById(ProductId));
+        }
+        
     }
 }
