@@ -1,4 +1,5 @@
-﻿using Spring2025_Samples.Models;
+﻿using Library.eCommerce.Models;
+using Spring2025_Samples.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,8 +10,9 @@ namespace Library.eCommerce.Services
 {
     public class ShoppingCartService
     {
-        private List<Product> items;
-        public List<Product> CartItems
+        private ProductServiceProxy _prodSvc;
+        private List<Item> items;
+        public List<Item> CartItems
         {
             get
             {
@@ -30,7 +32,7 @@ namespace Library.eCommerce.Services
         }
         private static ShoppingCartService? instance;
         private ShoppingCartService() { 
-            items = new List<Product>();
+            items = new List<Item>();
         }
     }
 }
