@@ -61,6 +61,12 @@ namespace Library.eCommerce.Services
                 item.Id = LastKey + 1;
                 item.Product.Id = item.Id;
                 Products.Add(item);
+            } else
+            {
+                var existingItem = Products.FirstOrDefault(p => p.Id == item.Id);
+                var index = Products.IndexOf(existingItem);
+                Products.RemoveAt(index);
+                Products.Insert(index,new Item(item));
             }
 
 
