@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Library.eCommerce.DTO;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,6 +21,13 @@ namespace Spring2025_Samples.Models
             }
         }
 
+        public string LegacyProperty1 { get; set; }
+        public string LegacyProperty2 { get; set; }
+        public string LegacyProperty3 { get; set; }
+        public string LegacyProperty4 { get; set; }
+        public string LegacyProperty5 { get; set; }
+        public string LegacyProperty6 { get; set; }
+
         public Product()
         {
             Name = string.Empty;
@@ -34,6 +42,13 @@ namespace Spring2025_Samples.Models
         public override string ToString()
         {
             return Display ?? string.Empty;
+        }
+
+        public Product(ProductDTO p)
+        {
+            Name = p.Name;
+            Id = p.Id;
+            LegacyProperty1 = string.Empty;
         }
     }
 }
