@@ -14,12 +14,15 @@ namespace Library.eCommerce.Services
         private ProductServiceProxy()
         {
             Products = new List<Item?>
-            {
-                new Item{ Product = new ProductDTO{Id = 1, Name ="Product 1"}, Id = 1, Quantity = 1 },
-                new Item{ Product = new ProductDTO{Id = 2, Name ="Product 2"}, Id = 2 , Quantity = 2 },
-                new Item{ Product = new ProductDTO{Id = 3, Name ="Product 3"}, Id=3 , Quantity = 3 }
+           {
+            new Item{ Product = new ProductDTO{ Id = 1, Name = "Bluetooth Mouse", Price = 24.99m }, Id = 1, Quantity = 10 },
+            new Item{ Product = new ProductDTO{ Id = 2, Name = "Mechanical Keyboard", Price = 79.99m }, Id = 2, Quantity = 5 },
+            new Item{ Product = new ProductDTO{ Id = 3, Name = "Laptop Stand", Price = 39.99m }, Id = 3, Quantity = 7 },
+            new Item{ Product = new ProductDTO{ Id = 4, Name = "USB-C Hub", Price = 29.99m }, Id = 4, Quantity = 8 },
+            new Item{ Product = new ProductDTO{ Id = 5, Name = "Noise Cancelling Headphones", Price = 129.99m }, Id = 5, Quantity = 4 }
             };
         }
+
 
         private int LastKey
         {
