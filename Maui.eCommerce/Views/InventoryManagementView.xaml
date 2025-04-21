@@ -14,6 +14,17 @@
             <Entry Text="{Binding Query}" Grid.Column="0"/>
             <Button Text="Search" Grid.Column="1" Clicked="SearchClicked"/>
         </Grid>
+        <Picker x:Name="SortPicker"
+        Title="Sort by"
+        SelectedIndexChanged="SortPickerChanged">
+            <Picker.ItemsSource>
+                <x:Array Type="{x:Type x:String}">
+                    <x:String>Name</x:String>
+                    <x:String>Price</x:String>
+                </x:Array>
+            </Picker.ItemsSource>
+        </Picker>
+
         <ListView
             ItemsSource="{Binding Path=Products}"
             SelectedItem="{Binding SelectedProduct}"

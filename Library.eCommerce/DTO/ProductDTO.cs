@@ -13,7 +13,7 @@ namespace Library.eCommerce.DTO
 
         public string? Name { get; set; }
 
-        public decimal Price { get; set; }  // ✅ Added Price property
+        public decimal Price { get; set; }
 
         public string? Display
         {
@@ -28,14 +28,6 @@ namespace Library.eCommerce.DTO
             Name = string.Empty;
             Price = 0;
         }
-
-        public ProductDTO(Product p)
-        {
-            Name = p.Name;
-            Id = p.Id;
-            Price = 0;  // Set default or pull from Product if available
-        }
-
         public ProductDTO(ProductDTO p)
         {
             Name = p.Name;

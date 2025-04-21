@@ -3,20 +3,33 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Maui.eCommerce.Views.ShoppingManagementView"
              Title="ShoppingManagementView">
+
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
-        <!-- STORE COLUMN -->
         <Grid Grid.Column="0">
             <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
                 <RowDefinition Height="10*" />
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
+            
+            <Picker Grid.Row="0"
+                    Title="Sort By"
+                    SelectedIndexChanged="SortPickerChanged"
+                    Margin="10">
+                <Picker.ItemsSource>
+                    <x:Array Type="{x:Type x:String}">
+                        <x:String>Name</x:String>
+                        <x:String>Price</x:String>
+                    </x:Array>
+                </Picker.ItemsSource>
+            </Picker>
 
-            <ListView Grid.Row="0"
+            <ListView Grid.Row="1"
                       ItemsSource="{Binding Inventory}"
                       SelectedItem="{Binding SelectedItem}">
                 <ListView.ItemTemplate>
@@ -24,30 +37,26 @@
                         <ViewCell>
                             <Grid Padding="5">
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="Auto" />
                                     <ColumnDefinition Width="4*" />
                                     <ColumnDefinition Width="Auto" />
                                     <ColumnDefinition Width="Auto" />
                                     <ColumnDefinition Width="60" />
-                                    <!-- Entry -->
                                     <ColumnDefinition Width="Auto" />
-                                    <!-- Button -->
                                 </Grid.ColumnDefinitions>
 
-                                <Label Grid.Column="0" Text="{Binding Id}" />
-                                <Label Grid.Column="1" Text="{Binding Product.Name}" />
-                                <Label Grid.Column="2" Text="x" />
-                                <Label Grid.Column="3" Text="{Binding Quantity}" />
+                                <Label Grid.Column="0" Text="{Binding Product.Display}" />
 
-                                <!-- Inline quantity textbox -->
-                                <Entry Grid.Column="4"
+                                <Label Grid.Column="1" Text="x" />
+                                <Label Grid.Column="2" Text="{Binding Quantity}" />
+
+                                <Entry Grid.Column="3"
                                        Text="{Binding QuantityToAdd, Mode=TwoWay}"
                                        Placeholder="1"
                                        Keyboard="Numeric"
                                        HorizontalTextAlignment="Center"
                                        WidthRequest="50" />
 
-                                <Button Grid.Column="5"
+                                <Button Grid.Column="4"
                                         Text="+"
                                         Clicked="InlineAddClicked" />
                             </Grid>
@@ -56,50 +65,42 @@
                 </ListView.ItemTemplate>
             </ListView>
 
-            <Button Grid.Row="1"
+            <Button Grid.Row="2"
                     Text="Add to Cart"
                     Clicked="AddToCartClicked"
                     Margin="10" />
         </Grid>
 
-        <!-- SHOPPING CART COLUMN -->
         <Grid Grid.Column="1">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
-                <!-- Cart Picker -->
                 <RowDefinition Height="*" />
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
-            <!-- Cart Selector -->
             <Picker Grid.Row="0"
-            Title="Select Cart"
-            ItemsSource="{Binding CartNames}"
-            SelectedItem="{Binding SelectedCartName}"
-            Margin="10" />
+                    Title="Select Cart"
+                    ItemsSource="{Binding CartNames}"
+                    SelectedItem="{Binding SelectedCartName}"
+                    Margin="10" />
 
-            <!-- Cart Items -->
             <ListView Grid.Row="1"
-              ItemsSource="{Binding ShoppingCart}"
-              SelectedItem="{Binding SelectedCartItem}">
-                <!-- Optional: define item template -->
+                      ItemsSource="{Binding ShoppingCart}"
+                      SelectedItem="{Binding SelectedCartItem}">
             </ListView>
 
-            <!-- Cart Buttons -->
             <StackLayout Grid.Row="2"
-                 Orientation="Horizontal"
-                 HorizontalOptions="Center"
-                 Spacing="20"
-                 Margin="10">
+                         Orientation="Horizontal"
+                         HorizontalOptions="Center"
+                         Spacing="20"
+                         Margin="10">
                 <Button Text="Remove"
-                Clicked="RemoveFromCartClicked" />
+                        Clicked="RemoveFromCartClicked" />
                 <Button Text="Checkout"
-                Clicked="CheckoutClicked" />
+                        Clicked="CheckoutClicked" />
                 <Button Text="Back to Home"
-                Clicked="GoToHomeClicked" />
-
+                        Clicked="GoToHomeClicked" />
             </StackLayout>
         </Grid>
-
     </Grid>
 </ContentPage>

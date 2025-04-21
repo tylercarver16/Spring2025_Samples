@@ -38,4 +38,17 @@ public partial class ShoppingManagementView : ContentPage
     {
         (BindingContext as ShoppingManagementViewModel).Checkout();
     }
+
+    private void SortPickerChanged(object sender, EventArgs e)
+    {
+        var picker = sender as Picker;
+        var selected = picker.SelectedIndex;
+
+        if (BindingContext is ShoppingManagementViewModel vm)
+        {
+            vm.SortBy = selected == 1 ? "Price" : "Name";
+            vm.RefreshUX();
+        }
+    }
+
 }

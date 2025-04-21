@@ -41,4 +41,17 @@ public partial class InventoryManagementView : ContentPage
     {
         (BindingContext as InventoryManagementViewModel)?.RefreshProductList();
     }
+
+    private void SortPickerChanged(object sender, EventArgs e)
+    {
+        var picker = sender as Picker;
+        var selected = picker.SelectedIndex;
+
+        if (BindingContext is InventoryManagementViewModel vm)
+        {
+            vm.SortBy = selected == 1 ? "Price" : "Name";
+            vm.RefreshProductList();
+        }
+    }
+
 }

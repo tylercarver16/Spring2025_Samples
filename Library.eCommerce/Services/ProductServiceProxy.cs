@@ -22,17 +22,14 @@ namespace Library.eCommerce.Services
             new Item{ Product = new ProductDTO{ Id = 5, Name = "Noise Cancelling Headphones", Price = 129.99m }, Id = 5, Quantity = 4 }
             };
         }
-
-
         private int LastKey
         {
             get
             {
-                if(!Products.Any())
+                if (!Products.Any())
                 {
                     return 0;
                 }
-
                 return Products.Select(p => p?.Id ?? 0).Max();
             }
         }
@@ -43,7 +40,7 @@ namespace Library.eCommerce.Services
         {
             get
             {
-                lock(instanceLock)
+                lock (instanceLock)
                 {
                     if (instance == null)
                     {
@@ -54,32 +51,41 @@ namespace Library.eCommerce.Services
                 return instance;
             }
         }
-
         public List<Item?> Products { get; private set; }
 
 
         public Item AddOrUpdate(Item item)
         {
-            if(item.Id == 0)
+            if (item == null || item.Product == null)
+            {
+                return item ?? new Item();
+            }
+
+            if (item.Id == 0)
             {
                 item.Id = LastKey + 1;
                 item.Product.Id = item.Id;
                 Products.Add(item);
-            } else
+            }
+            else
             {
                 var existingItem = Products.FirstOrDefault(p => p.Id == item.Id);
-                var index = Products.IndexOf(existingItem);
-                Products.RemoveAt(index);
-                Products.Insert(index,new Item(item));
+                if (existingItem != null)
+                {
+                    existingItem.Product.Name = item.Product.Name;
+                    existingItem.Product.Price = item.Product.Price;
+                    existingItem.Quantity = item.Quantity;
+                }
             }
 
 
             return item;
         }
 
+
         public Item? Delete(int id)
         {
-            if(id == 0)
+            if (id == 0)
             {
                 return null;
             }
@@ -97,5 +103,5 @@ namespace Library.eCommerce.Services
 
     }
 
-    
+
 }

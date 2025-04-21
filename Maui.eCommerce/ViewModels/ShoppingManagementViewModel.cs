@@ -22,13 +22,22 @@ namespace Maui.eCommerce.ViewModels
         {
             get
             {
-                return new ObservableCollection<Item?>(_invSvc.Products
-                    .Where(i => i?.Quantity > 0)
-                    );
+                var list = _invSvc.Products.Where(i => i?.Quantity > 0);
+
+                if (SortBy == "Price")
+                    list = list.OrderBy(i => i?.Product?.Price);
+                else
+                    list = list.OrderBy(i => i?.Product?.Name);
+
+                return new ObservableCollection<Item?>(list);
             }
         }
 
+
         public ObservableCollection<string> CartNames { get; set; } = new() { "Default", "Wishlist", "Gift Ideas" };
+
+        public string SortBy { get; set; } = "Name";
+
 
         private string _selectedCartName = "Default";
         public string SelectedCartName
@@ -53,11 +62,17 @@ namespace Maui.eCommerce.ViewModels
         {
             get
             {
-                return new ObservableCollection<Item?>(_cartSvc.CartItems
-                    .Where(i => i?.Quantity > 0)
-                    );
+                var list = _cartSvc.CartItems.Where(i => i?.Quantity > 0);
+
+                if (SortBy == "Price")
+                    list = list.OrderBy(i => i?.Product?.Price);
+                else
+                    list = list.OrderBy(i => i?.Product?.Name);
+
+                return new ObservableCollection<Item?>(list);
             }
         }
+
 
         public event PropertyChangedEventHandler? PropertyChanged;
         public void NotifyPropertyChanged([CallerMemberName] string propertyName = "")
